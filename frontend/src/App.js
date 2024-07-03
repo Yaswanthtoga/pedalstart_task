@@ -1,21 +1,41 @@
 import './App.css';
-import Task from './components/Task';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext.js";
+import Home from './pages/Home.jsx';
+import SignUp from './pages/SignUp.jsx';
+import SignIn from './pages/SignIn.jsx';
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+  const ProtectedRoute = ({children})=>{
+    if(!currentUser){
+      return <Navigate to="/login"/>
+    }
+    return children;
+  }
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <ProtectedRoute><Home/></ProtectedRoute>,
+    },
+    {
+      path: "/register",
+      element: <SignUp/>,
+    },
+    {
+      path: "/login",
+      element: <SignIn/>,
+    },
+  ]);
+
   return (
-    <>
-    <div className='p-[3em] flex flex-wrap'>
-      <Task/>
-      <Task/>
-      <Task/>
-      <Task/>
-      <Task/>
-      <Task/>
-
-
-    </div>
-
-    </>
+    <RouterProvider router={router} />
   )
       
 }
