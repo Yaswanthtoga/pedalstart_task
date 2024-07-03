@@ -6,9 +6,9 @@ import {
 } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context/authContext.js";
-import Home from './pages/Home.jsx';
-import SignUp from './pages/SignUp.jsx';
-import SignIn from './pages/SignIn.jsx';
+import Home from './pages/Home.js';
+import SignUp from './pages/SignUp.js';
+import SignIn from './pages/SignIn.js';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -35,7 +35,9 @@ function App() {
   ]);
 
   return (
-    <RouterProvider router={router} />
+    <>
+      <RouterProvider router={router} />
+    </>
   )
       
 }
